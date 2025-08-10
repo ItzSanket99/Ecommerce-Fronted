@@ -1,17 +1,18 @@
 import React from 'react'
 import ProductCard from './ProductCard';
 import { FaTriangleExclamation } from 'react-icons/fa6';
+import img from "../assets/600x400.svg"
 
 const Products = () => {
 
     const isLoading = false;
-    const errorMessage = "Error Fetching form backend";
+    const errorMessage = "";
     const products = [{
         productId: 652,
         productName: "Iphone Xs max",
-        image: "https://placehold.co/600x400",
+        image: img,
         description: "Experience the latest in mobile technology with advanced cameras, powerful processing, and an all-day battery.",
-        quantity: 0,
+        quantity: 3,
         price: 1450.0,
         discount: 10.0,
         specialPrice: 1305.0,
@@ -19,7 +20,7 @@ const Products = () => {
       {
         productId: 654,
         productName: "MacBook Air M2s",
-        image: "https://placehold.co/600x400",
+        image: img,
         description: "Ultra-thin laptop with Apple's M2 chip, providing fast performance in a lightweight, portable design.",
         quantity: 0,
         price: 2550.0,
