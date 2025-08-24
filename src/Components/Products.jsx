@@ -1,35 +1,17 @@
 import React, { useEffect } from 'react'
 import ProductCard from './ProductCard';
 import { FaTriangleExclamation } from 'react-icons/fa6';
-import img from "../assets/600x400.svg"
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts } from '../Store/Actions';
 
 const Products = () => {
+    const { isLoading, errorMessage } = useSelector(
+        (state) => state.errors
+    );
 
-    const isLoading = false;
-    const errorMessage = "";
-//     const products = [{
-//         productId: 652,
-//         productName: "Iphone Xs max",
-//         image: img,
-//         description: "Experience the latest in mobile technology with advanced cameras, powerful processing, and an all-day battery.",
-//         quantity: 3,
-//         price: 1450.0,
-//         discount: 10.0,
-//         specialPrice: 1305.0,
-//       },
-//       {
-//         productId: 654,
-//         productName: "MacBook Air M2s",
-//         image: img,
-//         description: "Ultra-thin laptop with Apple's M2 chip, providing fast performance in a lightweight, portable design.",
-//         quantity: 0,
-//         price: 2550.0,
-//         discount: 20.0,
-//         specialPrice: 2040.0,
-//       }
-//   ];
+    // const isLoading = false;
+    // const errorMessage = "";
+
 
     const { products } = useSelector(
         (state) => state.Products 
@@ -46,10 +28,9 @@ const Products = () => {
 
   return (
     <div className=' lg:px-14 sm:px-8 px-4 py-14 2xl:w-[90%] 2xl:mx-auto' >
-        {
-            isLoading ? (
-                <p>It is loading..</p>
-            ): errorMessage ? (
+        {isLoading ? (
+                <p>loading...</p>
+            ) : errorMessage ? (
                 <div className=' flex justify-center items-center p-[200px]' >
                     <FaTriangleExclamation className=' text-slate-800 text-3xl mr-2' />
                     <span className=' text-slate-800 text-lg font-medium' >{errorMessage}</span>
@@ -62,8 +43,7 @@ const Products = () => {
                         }
                     </div>
                 </div>
-            )
-        }
+            )}
     </div>
   )
 }
