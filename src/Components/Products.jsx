@@ -3,6 +3,7 @@ import ProductCard from './ProductCard';
 import { FaTriangleExclamation } from 'react-icons/fa6';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts } from '../Store/Actions';
+import Filter from './Filter';
 
 const Products = () => {
     const { isLoading, errorMessage } = useSelector(
@@ -28,6 +29,7 @@ const Products = () => {
 
   return (
     <div className=' lg:px-14 sm:px-8 px-4 py-14 2xl:w-[90%] 2xl:mx-auto' >
+        <Filter />
         {isLoading ? (
                 <p>loading...</p>
             ) : errorMessage ? (
