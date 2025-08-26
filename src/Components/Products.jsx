@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Filter from './Filter';
 import useProductFilter from './useProductFilter';
+import { fetchCategories } from '../Store/Actions';
+import { useEffect } from 'react';
 
 const Products = () => {
     const { isLoading, errorMessage } = useSelector(
@@ -15,7 +17,7 @@ const Products = () => {
     // const errorMessage = "";
 
 
-    const { products } = useSelector(
+    const { products, categories } = useSelector(
         (state) => state.Products 
     )
 
@@ -23,16 +25,16 @@ const Products = () => {
 
     useProductFilter();
 
-    // useEffect(() => {
-    //     dispatch(fetchProducts())
-    // },[dispatch])
+    useEffect(() => {
+        dispatch(fetchCategories())
+    },[dispatch])
 
     console.log();
     
 
   return (
     <div className=' lg:px-14 sm:px-8 px-4 py-14 2xl:w-[90%] 2xl:mx-auto' >
-        <Filter />
+        <Filter categories = {categories ? categories : []} />
         {isLoading ? (
                 <p>loading...</p>
             ) : errorMessage ? (
