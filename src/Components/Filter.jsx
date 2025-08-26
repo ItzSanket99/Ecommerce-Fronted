@@ -7,9 +7,9 @@ import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 
 const Filter = () => {
     const categories = [
-        {categoryId : 1, categoryName : "Electronic"},
-        {categoryId : 2, categoryName : "clothing"},
-        {categoryId : 3, categoryName : "furniture"},
+        {categoryId : 1, categoryName : "electronics"},
+        {categoryId : 2, categoryName : "utensil's"},
+        {categoryId : 3, categoryName : "cars bikes"},
         {categoryId : 4, categoryName : "books"},
         {categoryId : 5, categoryName : "toys"},
     ]
