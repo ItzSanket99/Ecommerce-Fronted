@@ -9,6 +9,8 @@ import { fetchCategories } from '../Store/Actions';
 import { useEffect } from 'react';
 
 import Loader from './Loader';
+import Paginations from './Paginations';
+
 
 const Products = () => {
     const { isLoading, errorMessage } = useSelector(
@@ -19,7 +21,7 @@ const Products = () => {
     // const errorMessage = "";
 
 
-    const { products, categories } = useSelector(
+    const { products, categories, pagination } = useSelector(
         (state) => state.Products 
     )
 
@@ -50,6 +52,12 @@ const Products = () => {
                         {
                             products && products.map((item, i) => <ProductCard key={i} {...item} />)
                         }
+                    </div>
+                    <div className=' flex justify-center items-center pt-10'>
+                        <Paginations 
+                            numberOfPage = {pagination?.totalPages}
+                            totalProducts = {pagination?.totalElements}
+                        />
                     </div>
                 </div>
             )}
