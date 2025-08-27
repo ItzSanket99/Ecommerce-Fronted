@@ -1,7 +1,6 @@
 
-import { FaBeer } from 'react-icons/fa'
 import './App.css'
-import Products from './Components/Products'
+import Products from './Components/Products/Products'
 
 function App() {
 

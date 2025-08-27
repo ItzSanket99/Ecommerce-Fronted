@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
-import ProductViewModal from "./ProductViewModal";
-import truncateText from "./truncateText";
+import ProductViewModal from "../../Components/Shared/ProductViewModal";
+import truncateText from "../../Utils/truncateText";
 
 const ProductCard = ({
         productId,
