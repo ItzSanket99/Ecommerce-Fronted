@@ -22,10 +22,12 @@ const Paginations = ({numberOfPage,totalProducts}) => {
       <Pagination 
         count={numberOfPage} 
         page={paramValue}
-        defaultPage={1} 
-        siblingCount={0} 
+        defaultPage={1}
         shape="rounded" 
+        boundaryCount={2} 
+        color="primary"
         onChange={onChangeHandler}
+        
       />
   )
 }
