@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Navbar from './Components/Shared/Navbar'
 import About from './Components/Shared/About'
 import Contact from './Components/Shared/Contact'
+import { Toaster } from 'react-hot-toast'
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
           <Route path= '/contact' element = { <Contact /> } />
         </Routes>
       </Router>  
+      <Toaster position='top-center'/>
     </>
   ) 
 }
