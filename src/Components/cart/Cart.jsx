@@ -1,8 +1,19 @@
 import React from 'react'
 import { MdArrowBack, MdShoppingCart } from 'react-icons/md';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import ItemContent from './ItemContent';
 
 const Cart = () => {
+
+    const dispatch = useDispatch();
+    const {cart} = useSelector((state) => state.carts);
+    const newCart = { ...cart };
+
+    newCart.totalPrice = cart?.reduce(
+        (prev, curr) => prev * Number(curr?.specialPrice) * Number(curr?.quantity) , 0
+    )
+    if (!cart || cart.length === 0) return <div className='flex justify-center mt-60'><h2 className='text-2xl font-semibold text-slate-800'>Cart is Empty!!!</h2></div>
   return (
     <div className='lg:px-14 sm:px-8 px-4 py-10' >
         <div className='flex flex-col items-center mb-12' >
@@ -28,7 +39,16 @@ const Cart = () => {
                 total
             </div>
         </div>
-        <div className='border-t-[1.5px] border-slate-300 py-4 flex sm:flex-row sm:px-0 px-2 flex-col sm:justify-between gap-4' >
+
+        <div>
+            {
+                cart && cart.length > 0 && cart.map(
+                    (item,i) => <ItemContent key={i} {...item} />
+                )
+            }
+        </div>
+
+        <div className='border-t-[1.5px] border-slate-200 py-4 flex sm:flex-row sm:px-0 px-2 flex-col sm:justify-between gap-4' >
             <div></div>
             <div className='flex text-sm gap-1 flex-col' >
                 <div className='flex justify-between w-full md:text-lg text-sm font-semibold' >
