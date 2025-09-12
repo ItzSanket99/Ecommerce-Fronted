@@ -48,8 +48,6 @@ export const fetchCategories = () => async (dispatch) => {
 export const addToCart = (data, qty = 1,toast) => 
     (dispatch, getState) => {
         // find the product
-       
-        
         const { products } = getState().Products;
         const getProduct = products.find(
             (item) => item.productId === data.productId
@@ -65,7 +63,7 @@ export const addToCart = (data, qty = 1,toast) =>
 
                     quantity:qty,
                 }
-            })
+            }) 
             toast.success(`${data?.productName} added to cart`);
             localStorage.setItem("cartItems", JSON.stringify(getState().carts.cart))
         } else {
@@ -74,3 +72,30 @@ export const addToCart = (data, qty = 1,toast) =>
             toast.error(`Out of stock`);
         }
 }
+
+export const increaseCartQuantity = 
+    (data, toast, currentQuantity, setCurrentQuantity) =>
+    (dispatch,getState) => {
+        // find the product
+        const { products } = getState().Products;
+        console.log(data);
+        
+        const getProduct = products.find(
+            (item) => item.productId === data.productId
+        );
+
+        const isQuantityExist = getProduct.quantity >= currentQuantity + 1;
+        
+        if (isQuantityExist) {
+            const newQuantity = currentQuantity + 1;
+            setCurrentQuantity(newQuantity);
+
+            dispatch({
+                type: "ADD_CART",
+                payload: {...data, quantity:newQuantity},
+            });
+            localStorage.setItem("cartItems", JSON.stringify(getState().carts.cart))
+        } else {
+            toast.error("Quantity Reached To Limit");
+        }
+    };

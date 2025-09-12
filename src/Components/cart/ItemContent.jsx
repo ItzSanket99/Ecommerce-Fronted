@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import { HiOutlineTrash } from "react-icons/hi";
 import SetQuantity from './SetQuantity';
+import { useDispatch } from 'react-redux';
+import { increaseCartQuantity } from '../../Store/Actions';
+import toast from 'react-hot-toast';
 
 const ItemContent = ({
         productId,
@@ -13,6 +16,16 @@ const ItemContent = ({
         specialPrice,
         cartId,
 }) => {
+
+    const dispatch = useDispatch();
+    const handleQtyIncrease = (cartItems) => {
+        dispatch(increaseCartQuantity(
+            cartItems,
+            toast,
+            currentQuantity,
+            setCurrentQuantity,
+        ));
+    }
 
     const [currentQuantity, setCurrentQuantity] = useState(quantity);
   return (
@@ -45,7 +58,15 @@ const ItemContent = ({
             <SetQuantity 
                 quantity={currentQuantity}
                 cartCounter={true}
-                handleQtyIncrease={()=>{}}
+                handleQtyIncrease={()=> handleQtyIncrease({
+                    image,
+                    productName,
+                    description,
+                    price,
+                    specialPrice,
+                    productId,
+                    quantity,
+                })}
                 handleQtyDecrease={()=>{}}
             />
         </div>
