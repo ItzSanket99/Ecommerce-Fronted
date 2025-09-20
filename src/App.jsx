@@ -10,6 +10,7 @@ import { Toaster } from 'react-hot-toast'
 import Cart from './Components/cart/Cart'
 import LogIn from './Components/auth/LogIn'
 import PrivateRoutes from './Components/Shared/PrivateRoutes'
+import SignUp from './Components/auth/SignUp'
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
           {/* private route */}
           <Route path='/' element={<PrivateRoutes publicPage />}>
             <Route path= '/login' element = { <LogIn /> } />
+            <Route path='/register' element = { <SignUp /> } />
           </Route>
         </Routes>
       </Router>  
