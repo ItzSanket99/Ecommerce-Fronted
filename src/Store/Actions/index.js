@@ -156,3 +156,11 @@ export const registerNewUser =
             setLoader(false);
         }
 }
+
+export const logoutUser = (navigate) => (dispatch) => {
+    dispatch({
+        type:"LOG_OUT",
+    });
+    localStorage.removeItem("auth");
+    navigate("/login");
+}
