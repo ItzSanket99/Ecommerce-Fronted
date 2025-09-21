@@ -172,11 +172,33 @@ export const addUpdateUserAddress =
     try {
         const { data } = await api.post("/addresses",sendData);
         toast.success("Address saved sucessfully");
+        dispatch({type:"IS_SUCCESS"});
     } catch (error) {
         console.log(error);
         toast.error(error?.response?.data?.message || "Internal Server Error");
         dispatch({type:"IS_ERROR", payload:null});
     } finally {
         setOpen(false);
+    }
+ }
+
+ export const getUserAddresses = () => async (dispatch) => {
+    try {
+        dispatch({
+            type:"IS_FETCHING",
+        })
+        const { data } = await api.get("/users/addresses");
+        dispatch({
+            type: "USER_ADDRESS",
+            payload: data,
+        })
+        dispatch({
+            type: "IS_SUCCESS"
+        })
+    } catch (error) {
+        dispatch({
+            type: "IS_ERROR",
+            payload: "Failed to fetch users address"
+        })
     }
  }
