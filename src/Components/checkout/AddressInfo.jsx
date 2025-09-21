@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react'
 import Skeleton from '../Shared/Skeleton';
 import { FaAddressBook } from "react-icons/fa";
@@ -54,7 +55,10 @@ const AddressInfo = () => {
             open={openAddressModal}
             setOpen={SetOpenAddressModal}
         >
-            <AddAddressForm />
+            <AddAddressForm 
+                address = {selectedAddress}
+                setOpen = {SetOpenAddressModal}
+            />
         </AddressInfoModal>
     </div>
   ) 
