@@ -7,6 +7,7 @@ import toast from 'react-hot-toast';
 import { isAllOf } from '@reduxjs/toolkit';
 import Skeleton from '../Shared/Skeleton';
 import ErrorPage from '../Shared/ErrorPage';
+import PaymentMethod from './PaymentMethod';
 
 const Checkout = () => {
 
@@ -26,7 +27,7 @@ const Checkout = () => {
             toast.error("please select checkout address before processing.");
             return;
         }
-        if (activeStep === 0 && (!selectedUserCheckOutAddress || !paymentMethod)) {
+        if (activeStep === 1 && (!selectedUserCheckOutAddress || !paymentMethod)) {
             toast.error("please select payment address before processing.");
             return;
         }
@@ -62,6 +63,7 @@ const Checkout = () => {
         ) : (
             <div className='mt-5' >  
                 {activeStep === 0 && <AddressInfo address={address} />}
+                {activeStep === 1 && <PaymentMethod />}
             </div>
         )}
         
