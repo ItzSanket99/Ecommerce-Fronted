@@ -19,7 +19,7 @@ const Checkout = () => {
 
     useEffect(()=>{
         dispatch(getUserAddresses());
-    },[dispatch]);
+    },[dispatch,address]);
 
   return (
     <div className='py-14  min-h-[calc(100vh-100px)]' >

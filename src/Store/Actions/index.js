@@ -170,7 +170,11 @@ export const addUpdateUserAddress =
     // const { user } = getState().auth;
     dispatch({type:"BUTTON_LOADER"});
     try {
-        const { data } = await api.post("/addresses",sendData);
+        if (addressId) {
+            const { data } = await api.put(`addresses/${addressId}`,sendData);
+        } else { 
+            const { data } = await api.post("/addresses",sendData);
+        }
         toast.success("Address saved sucessfully");
         dispatch({type:"IS_SUCCESS"});
     } catch (error) {
