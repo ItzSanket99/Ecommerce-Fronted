@@ -25,12 +25,17 @@ function App() {
           <Route path= '/about' element = { <About /> } />
           <Route path= '/contact' element = { <Contact /> } />
           <Route path= '/cart' element = { <Cart /> } />
-          <Route path='/checkout' element = { <Checkout /> } />
-          {/* private route */}
+          
+          {/* public route */}
           <Route path='/' element={<PrivateRoutes publicPage />}>
             <Route path= '/login' element = { <LogIn /> } />  
             <Route path='/register' element = { <SignUp /> } />
           </Route>
+          {/* private route */}
+          <Route path='/' element={<PrivateRoutes />}>
+            <Route path='/checkout' element = { <Checkout /> } />
+          </Route>
+
         </Routes>
       </Router>  
       <Toaster position='top-center'/>
