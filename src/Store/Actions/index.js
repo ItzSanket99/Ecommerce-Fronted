@@ -177,6 +177,7 @@ export const addUpdateUserAddress =
         }
         toast.success("Address saved sucessfully");
         dispatch({type:"IS_SUCCESS"});
+        dispatch(getUserAddresses());
     } catch (error) {
         console.log(error);
         toast.error(error?.response?.data?.message || "Internal Server Error");
@@ -211,5 +212,24 @@ export const addUpdateUserAddress =
     return {
         type:"SELECT_CHECKOUT_ADDRESS",
         payload:address,
+    }
+ }
+
+ export const deleteUserAddress = (toast,addressId,setOpenDeleteModal) => 
+   async (dispatch,getState) => {
+    try {
+        dispatch({type:"BUTTON_LOADER"});
+        await api.delete(`addresses/${addressId}`);
+        dispatch({type:"IS_SUCCESS"});
+        dispatch(getUserAddresses());
+        toast.success("Address Deleted Successfully");
+        dispatch({type:"REMOVE_CHECKOUT_ADDRESS"})
+    } catch (error) {
+        dispatch({
+            type:"IS_ERROR",
+            payload:"Some Error Occured"
+        });
+    }finally{
+        setOpenDeleteModal(false);
     }
  }
