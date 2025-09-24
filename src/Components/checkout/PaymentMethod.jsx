@@ -1,16 +1,31 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { FormControl, FormControlLabel, Radio, RadioGroup } from '@mui/material'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addPaymentMethod } from '../../Store/Actions';
+import { addPaymentMethod, createUserCart } from '../../Store/Actions';
 
 const PaymentMethod = () => {
 
     const {PaymentMethod} = useSelector((state) => state.payment);
+    const {cart, cartId} = useSelector((state) => state.carts);
+    const {isLoading, errorMessage} = useSelector((state) => state.errors);
+
     const dispatch = useDispatch();
     const paymentMethodHandler = (method) => {
         dispatch(addPaymentMethod(method));
     }
 
+    useEffect(() => {
+        if (cart.length > 0 && !cartId && !errorMessage)  {
+            const sendCartItems = cart.map((item) => {
+                return{
+                    productId: item.productId,
+                    quantity: item.quantity
+                };
+            });
+            dispatch(createUserCart(sendCartItems));
+        }
+    },[dispatch,cartId])
   return (
     <div className='max-w-md mx-auto bg-white shadow-md rounded-lg mt-16 border px-4 py-2' >
         <h1 className='font-semibold text-2xl mb-4 '>
