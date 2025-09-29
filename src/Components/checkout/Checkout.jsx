@@ -4,10 +4,10 @@ import AddressInfo from './AddressInfo';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserAddresses } from '../../Store/Actions';
 import toast from 'react-hot-toast';
-import { isAllOf } from '@reduxjs/toolkit';
 import Skeleton from '../Shared/Skeleton';
 import ErrorPage from '../Shared/ErrorPage';
 import PaymentMethod from './PaymentMethod';
+import OrderSummary from './OrderSummary';
 
 const Checkout = () => {
 
@@ -15,8 +15,9 @@ const Checkout = () => {
     const dispatch = useDispatch();
     const {isLoading, errorMessage} = useSelector((state) => state.errors)
     const {address, selectedUserCheckOutAddress} = useSelector((state) => state.auth)
+    const {cart,totalPrice} = useSelector((state) => state.carts)
 
-    const paymentMethod = false;
+    const {paymentMethod} = useSelector((state) => state.payment);
 
     const handlerBack = () => {
         setActiveStep((prevStep) => prevStep - 1);
@@ -64,6 +65,12 @@ const Checkout = () => {
             <div className='mt-5' >  
                 {activeStep === 0 && <AddressInfo address={address} />}
                 {activeStep === 1 && <PaymentMethod />}
+                {activeStep === 2 && <OrderSummary 
+                                        totalPrice={totalPrice}
+                                        cart={cart}
+                                        address={selectedUserCheckOutAddress}
+                                        paymentMethod={paymentMethod}
+                />}
             </div>
         )}
         
@@ -83,7 +90,7 @@ const Checkout = () => {
                     errorMessage || (
                         (activeStep === 0 ? !selectedUserCheckOutAddress 
                             : activeStep === 1 ? !paymentMethod
-                            :false
+                            : false
                         )
                     )
                 }
