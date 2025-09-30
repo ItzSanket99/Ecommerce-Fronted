@@ -2,7 +2,6 @@ import React from 'react'
 import { formatPriceCalculation } from '../../Utils/formartPrice';
 
 const OrderSummary = ({totalPrice, cart, address, paymentMethod}) => {
-    console.log(address);
     
   return (
     <div className=' container mx-auto px-4 mb-12' >
@@ -24,15 +23,15 @@ const OrderSummary = ({totalPrice, cart, address, paymentMethod}) => {
                             {address?.street}
                         </p>
                         <p>
-                            <strong>State : </strong>
+                            <strong>State: </strong>
                             {address?.state}
                         </p>
                         <p>
-                            <strong>Pincode : </strong>
+                            <strong>Pincode: </strong>
                             {address?.pincode}
                         </p>
                         <p>
-                            <strong>Country : </strong>
+                            <strong>Country: </strong>
                             {address?.country}
                         </p>
                     </div>
