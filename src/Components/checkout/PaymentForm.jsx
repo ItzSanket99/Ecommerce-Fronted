@@ -8,7 +8,23 @@ const PaymentForm = ({clientSecret, totalPrice}) => {
     const [errorMessage, setErrorMessage] = useState("");
 
     const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!stripe || !elements) {
+            return;
+        }
+        const {error : sumbmitError} = await elements.submit();
+        const { error } = await stripe.confirmPayment({
+            elements,
+            clientSecret,
+            confirmParams:{
+                return_url:`${import.meta.env.VITE_FRONTEND_URL}/order-confirm`,
+            },
+        });
 
+        if (error) {
+            setErrorMessage(error.message);
+            return false;
+        }
     }
 
     const loading = !clientSecret || !stripe || !elements;
@@ -32,6 +48,7 @@ const PaymentForm = ({clientSecret, totalPrice}) => {
             <button 
                 disabled= {!stripe || loading}
                 className='text-white w-full px-5 py-[10px] bg-black mt-2 rounded-md font-bold disabled:opacity-50 disabled:animate-pulse'
+                
             >
                 {!loading ? `Pay $${Number(totalPrice).toFixed(2)}`: "processing"}
             </button>

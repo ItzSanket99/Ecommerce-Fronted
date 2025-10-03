@@ -1,3 +1,5 @@
+import { selectUserCheckOutAddress } from "../Actions";
+
 const initialState = {
     user: null,
     address: [],
@@ -26,6 +28,12 @@ export const authReducer = (state = initialState, action) => {
                 return{
                     ...state,
                     clientSecret:action.payload,
+                }
+        case "REMOVE_CLIENT_SECRET_ADDRESS":
+                return{
+                    ...state,
+                    clientSecret:null,
+                    selectUserCheckOutAddress:null,
                 }
         default:
             return state;
