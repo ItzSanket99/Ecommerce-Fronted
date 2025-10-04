@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
+import { data } from "react-router-dom";
 import api from "../../Api/Api.js"
 
 export const fetchProducts = (queryString) => async (dispatch) => {
@@ -270,14 +271,11 @@ export const getUserCart = () => async (dispatch,getState) => {
 }
 
 export const createStripePaymentSecret = 
-(totalPrice) => 
+(sentData) => 
     async (dispatch, getState) => {
         try {
             dispatch({type: "IS_FETCHING"});
-            const { data } = await api.post("/order/stripe-client-secret",{
-                "amount" : Number(totalPrice) * 100,
-                "currency": "usd"
-            });
+            const { data } = await api.post("/order/stripe-client-secret",sentData);
             dispatch({type:"CLIENT_SECRET", payload: data});
             localStorage.setItem("client-secret", JSON.stringify(data));
             dispatch({type:"IS_SUCCESS"});
@@ -292,11 +290,8 @@ export const stripePaymentConfirmation =
     async (dispatch, getState) => {
         try {
             const response  = await api.post("/order/users/payments/online",sentData);
-            console.log(response);
-            
+    
             if(response.data){
-                console.log("inside if: ",response);
-                
                 localStorage.removeItem("CHECKOUT_ADDRESS");
                 localStorage.removeItem("cartItems");
                 localStorage.removeItem("client-secret");
