@@ -291,19 +291,24 @@ export const stripePaymentConfirmation =
 (sentData, setErrorMessage, setLoading, toast) => 
     async (dispatch, getState) => {
         try {
-            const { response } = await api.post("/order/users/payments/online",sentData);
+            const response  = await api.post("/order/users/payments/online",sentData);
+            console.log(response);
+            
             if(response.data){
+                console.log("inside if: ",response);
+                
+                localStorage.removeItem("CHECKOUT_ADDRESS");
                 localStorage.removeItem("cartItems");
                 localStorage.removeItem("client-secret");
                 dispatch({type:"REMOVE_CLIENT_SECRET_ADDRESS"});
                 dispatch({type:"CLEAR_CART"});
                 toast.success("Order Accepted");
             }else{
-                // "toast.error("Payment Failed. Please try agian.");"
+                toast.error("Payment Failed. Please try agian.");
             }
             
         } catch (error) {
-          ""
+          toast.error("Payment Failed. Please try agian.");
         } 
        
 }
