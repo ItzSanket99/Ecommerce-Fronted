@@ -34,7 +34,7 @@ function App() {
             <Route path='/register' element = { <SignUp /> } />
           </Route>
           
-          <Route path='/' element={<PrivateRoutes />}>
+          <Route path='/' element={<PrivateRoutes adminOnly />}>
             <Route path='/admin' element={<AdminLayout/>} />
           </Route>
 
