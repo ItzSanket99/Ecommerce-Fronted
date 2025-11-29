@@ -13,6 +13,7 @@ import PrivateRoutes from './Components/Shared/PrivateRoutes'
 import SignUp from './Components/auth/SignUp'
 import Checkout from './Components/checkout/Checkout'
 import PaymentConfirmation from './Components/checkout/PaymentConfirmation'
+import AdminLayout from './Components/admin/AdminLayout'
 
 function App() {
 
@@ -32,6 +33,11 @@ function App() {
             <Route path= '/login' element = { <LogIn /> } />  
             <Route path='/register' element = { <SignUp /> } />
           </Route>
+          
+          <Route path='/' element={<PrivateRoutes />}>
+            <Route path='/admin' element={<AdminLayout/>} />
+          </Route>
+
           {/* private route */}
           <Route path='/' element={<PrivateRoutes />}>
             <Route path='/checkout' element = { <Checkout /> } />
