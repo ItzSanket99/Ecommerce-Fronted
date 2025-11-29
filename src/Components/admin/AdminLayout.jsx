@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import SideBar from '../Shared/SideBar'
-
-import { Dialog, DialogBackdrop, DialogPanel, TransitionChild } from '@headlessui/react'
-import { RxCross1 } from 'react-icons/rx'
+import Sidebar from '../shared/Sidebar'
+import { Outlet } from 'react-router-dom'
+import { Description, Dialog, DialogBackdrop, DialogPanel, DialogTitle, TransitionChild } from '@headlessui/react';
+import { RxCross1 } from 'react-icons/rx';
+import { FaBars } from 'react-icons/fa';
 
 const AdminLayout = () => {
-    let [sidebarOpen, setSidebarOpen] = useState(false)
+    let [sidebarOpen, setSidebarOpen] = useState(false);
   return (
     <div>
         <Dialog 
@@ -32,12 +33,33 @@ const AdminLayout = () => {
                 </button>
             </div>
            </TransitionChild>
-           <SideBar />
+           <Sidebar />
           </DialogPanel>
         </div>
       </Dialog>
-        <div className='fixed inset-y-0 z-50 flex w-72 flex-col' >
-            <SideBar />
+
+
+
+
+        <div className='hidden xl:fixed xl:inset-y-0 xl:z-50 xl:flex xl:w-72 xl:flex-col'>
+            <Sidebar />
+        </div>
+
+        <div className='xl:pl-72'>
+            <button
+                type='button'
+                onClick={() => setSidebarOpen(true)}
+                className='-m-2.5 text-gray-700 xl:hidden p-4'>
+                    <span className='sr-only'> Open Sidebar</span>
+                    <FaBars className='text-slate-800 text-2xl'/>
+            </button>
+
+            <main className=''>
+                <div className='p-4 sm:p-6 xl:p-8'>
+                    <Outlet />
+                </div>
+                
+            </main>
         </div>
     </div>
   )

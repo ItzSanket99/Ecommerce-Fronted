@@ -14,6 +14,10 @@ import SignUp from './Components/auth/SignUp'
 import Checkout from './Components/checkout/Checkout'
 import PaymentConfirmation from './Components/checkout/PaymentConfirmation'
 import AdminLayout from './Components/admin/AdminLayout'
+import Dashboard from './Components/admin/DashBoard/Dashboard'
+import AdminProducts from './Components/admin/Products/AdminProducts'
+import Sellers from './Components/admin/Sellers/sellers'
+import Categories from './Components/admin/Categories/categories'
 
 function App() {
 
@@ -34,8 +38,13 @@ function App() {
             <Route path='/register' element = { <SignUp /> } />
           </Route>
           
-          <Route path='/' element={<PrivateRoutes adminOnly />}>
-            <Route path='/admin' element={<AdminLayout/>} />
+          <Route path='/' element={<PrivateRoutes adminOnly />} >
+            <Route path='/admin' element={<AdminLayout />} >
+              <Route path='' element={<Dashboard />} />
+              <Route path='products' element={<AdminProducts />} />
+              <Route path='categories' element={<Categories />} />
+              <Route path='sellers' element={<Sellers />} />
+            </Route>
           </Route>
 
           {/* private route */}
