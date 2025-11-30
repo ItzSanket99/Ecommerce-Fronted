@@ -4,5 +4,22 @@ const initialState = {
 }
 
 export const orderReducer = (state = initialState, action) => {
-    return state;
+    switch (action.type) {
+        case "GET_ADMIN_ORDERS":
+            return {
+                ...state,
+                adminOrders:action.payload,
+                pagination:{
+                    ...state.pagination,
+                    pageNumber:action.pageNumber,
+                    pageSize:action.pageSize,
+                    totalElement:action.totalElement,
+                    totalPages:action.totalPages,
+                    lastPage:action.lastPage
+                }
+            }
+    
+        default:
+            return state;
+    }
 };

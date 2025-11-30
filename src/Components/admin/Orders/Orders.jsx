@@ -1,8 +1,26 @@
 import React from 'react'
+import { FaShoppingCart } from 'react-icons/fa';
+import OrderTable from './OrderTable';
+import { useSelector } from 'react-redux';
+import useOrderFilter from '../../../Hooks/useOrderFilter';
 
 const Orders = () => {
+  
+    const {adminOrders, pagination} = useSelector((state) => state.order);
+    useOrderFilter();
+    const emptyOrder = !adminOrders || adminOrders?.length === 0;
+
   return (
-    <div>Orders</div>
+    <div className='pb-6 pt-20' >
+       {emptyOrder ? (
+            <div className='flex flex-col items-center justify-center text-gray-600 py-10' >
+                <FaShoppingCart size={50} className='mt-3' />
+                <h2 className='text-2xl font-semibold'>No Order Placed Yet</h2>
+            </div>
+       ) : (
+            <OrderTable adminOrder={adminOrders} pagination={pagination}/>
+       )}
+    </div>
   )
 }
 
