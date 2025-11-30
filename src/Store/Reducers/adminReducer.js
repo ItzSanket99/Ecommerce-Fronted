@@ -7,9 +7,9 @@ export const adminReducer = (state = initialState, action) => {
         case "FETCH_ANALYTICS":
             return {
                 ...state,
-                analytics:action.payload,
+                analytics: action.payload,
             };
-    
+
         default:
             return state;
     }
