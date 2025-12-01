@@ -7,7 +7,7 @@ import useOrderFilter from '../../../Hooks/useOrderFilter';
 const Orders = () => {
   
     const {adminOrders, pagination} = useSelector((state) => state.order);
-    useOrderFilter();
+    const queryString = useOrderFilter();
     const emptyOrder = !adminOrders || adminOrders?.length === 0;
 
   return (
@@ -18,7 +18,7 @@ const Orders = () => {
                 <h2 className='text-2xl font-semibold'>No Order Placed Yet</h2>
             </div>
        ) : (
-            <OrderTable adminOrder={adminOrders} pagination={pagination}/>
+            <OrderTable adminOrder={adminOrders} pagination={pagination} queryString = {queryString}/>
        )}
     </div>
   )

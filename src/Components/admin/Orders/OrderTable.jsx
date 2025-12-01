@@ -5,7 +5,7 @@ import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import Modal from '../../Shared/Modal';
 import UpdateOrderForm from './updateOrderForm';
 
-const OrderTable = ({adminOrder,pagination}) => {
+const OrderTable = ({adminOrder,pagination,queryString}) => {
 const [updateOpenModal, setUpdateOpenModal] = useState(false);
 const [selectedItem, setSelectedItem] = useState("");
 const [loader, setLoader] = useState(false);
@@ -36,7 +36,7 @@ const handleEdit = (order) => {
   setSelectedItem(order);
   setUpdateOpenModal(true);
 }
-console.log(pagination);
+
 
   return (
     <div>
@@ -82,6 +82,7 @@ console.log(pagination);
             setLoader={setLoader}
             selectedId={selectedItem.id}
             selectedItem={selectedItem}
+            queryString={queryString}
             />
       </Modal>
     </div>
