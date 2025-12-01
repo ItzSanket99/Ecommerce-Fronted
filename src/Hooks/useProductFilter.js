@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux';
 import { useSearchParams } from 'react-router-dom'
-import { fetchProducts } from '../Store/Actions';
+import { dashboardProductAction, fetchProducts } from '../Store/Actions';
 
 const useProductFilter = () => {
     const [searchParams] = useSearchParams();
@@ -33,6 +33,25 @@ const useProductFilter = () => {
         
         const queryString = params.toString();
         dispatch(fetchProducts(queryString));
+
+    },[searchParams, dispatch])
+  
+}
+export const useDashboardProductFilter = () => {
+    const [searchParams] = useSearchParams();
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const params = new URLSearchParams();
+
+        const currentPage = searchParams.get("page")
+            ? Number(searchParams.get("page"))
+            : 1;
+
+        params.set("pageNumber", currentPage - 1);
+        
+        const queryString = params.toString();
+        dispatch(dashboardProductAction(queryString));
 
     },[searchParams, dispatch])
   
