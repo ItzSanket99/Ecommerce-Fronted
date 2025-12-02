@@ -6,6 +6,8 @@ import { FaBoxOpen } from "react-icons/fa";
 import { adminProductTableColumn } from '../Helper/tableColumn.jsx';
 import { DataGrid } from '@mui/x-data-grid';
 import { useDashboardProductFilter } from '../../../Hooks/useProductFilter.js';
+import Modal from "../../Shared/Modal.jsx"
+import AddProductForm from './AddProductForm.jsx';
 
 const AdminProducts = () => {
 
@@ -14,8 +16,12 @@ const AdminProducts = () => {
   const {isLoading, errorMessage} = useSelector((state) => state.errors);
   const emptyProducts = !products || products?.length === 0;
 
-  useDashboardProductFilter();
+  const [selectedProduct, setSelectedProduct] = useState('');
+  const [currentPage, setCurrentPage] = useState(pagination?.pageNumber + 1 || 1);
+  const [openUpdateModal,setOpenUpdateModal] = useState(false);
 
+  useDashboardProductFilter();
+  
   const tableRecords = products?.map((item) =>{
     return {
       id: item.productId,
@@ -29,7 +35,9 @@ const AdminProducts = () => {
     }
   })
 
-  const handleEdit = () => {
+  const handleEdit = (product) => {
+    setSelectedProduct(product);
+    setOpenUpdateModal(true);
 
   }
   const handleDelete = () => {
@@ -44,7 +52,6 @@ const AdminProducts = () => {
   const handlePaginationChange = () => {
 
   }
-  const [currentPage, setCurrentPage] = useState(pagination?.pageNumber + 1 || 1);
 
   return (
     <div>
@@ -103,6 +110,18 @@ const AdminProducts = () => {
           )}
         </>
       )}
+
+      <Modal 
+        open={openUpdateModal}
+        setOpen={setOpenUpdateModal}
+        title='Update Product'
+      >
+        <AddProductForm
+          setOpen={setOpenUpdateModal}
+          product={selectedProduct}
+          update={openUpdateModal}
+        />
+      </Modal>
     </div>
   )
 }

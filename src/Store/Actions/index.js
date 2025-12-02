@@ -384,3 +384,18 @@ export const dashboardProductAction = (queryString) => async (dispatch) => {
         
     }
 }
+
+export const updateDashboardProduct = 
+(sentData, toast, reset, setLoader, setOpen) => async (dispatch) => {
+    try {
+        setLoader(true);
+        await api.put(`/admin/products/${sentData.id}`, sentData);
+        toast.success("product update successfull");
+        reset();
+        setLoader(false);
+        setOpen(false);
+        await dispatch(dashboardProductAction());
+    } catch (error) {
+        toast.error(error?.response?.data?.description || "Failed to update the product ")
+    }
+}
