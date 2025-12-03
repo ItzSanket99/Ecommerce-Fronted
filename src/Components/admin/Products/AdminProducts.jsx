@@ -148,7 +148,6 @@ const AdminProducts = () => {
         <ImageUploadForm
           setOpen={setOpenImageUploadModal}
           product={selectedProduct}
-          update={openUpdateModal}
         />
       </Modal>
       <DeleteModal

@@ -15,7 +15,7 @@ function ProductViewModal({open, setOpen, product, isAvailable}) {
     <>
       <Dialog open={open} as="div" className="relative z-10" onClose={close}>
       <DialogBackdrop className="fixed inset-0 bg-gray-500 opacity-75 transition-opacity" />
-        <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+        <div className="fixed inset-0 z-10 w-screen overflow-y-auto mt-15">
           <div className="flex min-h-full items-center justify-center p-4">
             <DialogPanel
               transition
