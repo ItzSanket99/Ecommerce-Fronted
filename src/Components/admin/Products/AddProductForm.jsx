@@ -3,15 +3,21 @@ import { useForm } from 'react-hook-form'
 import InputFeild from '../../Shared/InputFeild';
 import { Button } from '@mui/material';
 import { FaSpinner } from 'react-icons/fa';
-import { useDispatch } from 'react-redux';
-import { updateDashboardProduct } from '../../../Store/Actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCategories, updateDashboardProduct } from '../../../Store/Actions';
 import toast from 'react-hot-toast';
+import SelectTextField from '../../Shared/SelectTextFeild';
+import Skeleton from '../../Shared/Skeleton';
+import ErrorPage from '../../Shared/ErrorPage';
 
 
 const AddProductForm = ({setOpen, product, update=false}) => {
 
-    const [loader, setLoader] = useState(false);
     const dispatch = useDispatch();
+    const [loader, setLoader] = useState(false);
+    const [selectedCategory, setSelectedCategory] = useState("");
+    const { categories } = useSelector((state) => state.Products);
+    const { categoryLoader, errorMessage } = useSelector((state) => state.errors)
 
     const {
         register,
@@ -37,6 +43,7 @@ const AddProductForm = ({setOpen, product, update=false}) => {
     const saveProductHandler = (data) => {
         if(!update){
             // create new product logic
+
         }else{
             const sentData = {
                 ...data,
@@ -44,6 +51,26 @@ const AddProductForm = ({setOpen, product, update=false}) => {
             };
             dispatch(updateDashboardProduct(sentData, toast, reset, setLoader, setOpen))
         }
+    }
+
+    useEffect(() => {
+        if(!update){
+            dispatch(fetchCategories());
+        }
+    },[dispatch,update])
+
+    useEffect(() => {
+        if(!categoryLoader && categories){
+            setSelectedCategory(categories[0]);
+        }
+    },[categories,categoryLoader])
+
+    if(categoryLoader) {
+        return <Skeleton />
+    }
+
+    if(errorMessage){
+        <ErrorPage message={errorMessage}/>
     }
 
   return (
@@ -60,6 +87,15 @@ const AddProductForm = ({setOpen, product, update=false}) => {
                     register={register}
                     errors={errors}
                 />
+
+                {!update && (
+                    <SelectTextField
+                        label="Select Categories"
+                        select={selectedCategory}   
+                        setSelect={setSelectedCategory}
+                        lists={categories}
+                    />
+                )}
             </div>
             <div className='flex md:flex-row flex-col gap-4 w-full'>
                 <InputFeild 
