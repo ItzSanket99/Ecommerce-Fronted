@@ -399,3 +399,20 @@ export const updateDashboardProduct =
         toast.error(error?.response?.data?.description || "Failed to update the product ")
     }
 }
+
+export const deleteProduct =
+(setLoader, productId, toast, setOpenDeleteModal) => async (dispatch,getState) => {
+    try {
+        setLoader(true);
+        await api.delete(`/admin/products/${productId}`);
+        toast.success("Product Deleted Successfully");
+        setLoader(false);
+        setOpenDeleteModal(false);
+        await dispatch(dashboardProductAction());
+       
+    } catch (error) {
+        toast.error(error?.response?.data?.message || "Some error occured")
+    }finally{
+        setOpenDeleteModal(false);
+    }
+ }
