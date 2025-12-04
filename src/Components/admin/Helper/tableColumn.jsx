@@ -115,7 +115,7 @@ export const adminProductTableColumn = (
     editable: false,
     headerClassName: "text-black font-semibold border",
     cellClassName: "text-slate-700 font-normal border",
-    renderHeader: (params) => <span className="text-center">ProductID</span>,
+    renderHeader: (params) => <span className="text-center">ProductId</span>,
   },
   {
     disableColumnMenu: true,
@@ -238,6 +238,71 @@ export const adminProductTableColumn = (
             <FaEye className="mr-2" />
             View
           </button>
+        </div>
+      );
+    },
+  },
+];
+
+export const adminCategoryTableColumn = (
+  handleEdit,
+  handleDelete,
+) => [
+  {
+    disableColumnMenu: true,
+    sortable: false,
+    field: "id",
+    headerName: "ID",
+    minWidth: 200,
+    headerAlign: "center",
+    align: "center",
+    editable: false,
+    headerClassName: "text-black font-semibold border",
+    cellClassName: "text-slate-700 font-normal border",
+    renderHeader: (params) => <span className="text-center">CategoryID</span>,
+  },
+  {
+    disableColumnMenu: true,
+    field: "categoryName",
+    headerName: "Category Name",
+    align: "center",
+    width: 260,
+    editable: false,
+    sortable: false,
+    headerAlign: "center",
+    headerClassName: "text-black font-semibold text-center border ",
+    cellClassName: "text-slate-700 font-normal border text-center",
+    renderHeader: (params) => <span>Category Name</span>,
+  },
+  {
+    field: "action",
+    headerName: "Action",
+    headerAlign: "center",
+    editable: false,
+    headerClassName: "text-black font-semibold text-center",
+    cellClassName: "text-slate-700 font-normal",
+    sortable: false,
+    width: 400,
+    renderHeader: (params) => <span>Action</span>,
+    renderCell: (params) => {
+      return (
+        <div className="flex justify-center items-center space-x-2 h-full pt-2">
+          <button
+            onClick={() => handleEdit(params.row)}
+            className="flex items-center bg-blue-500 text-white px-4 h-9 rounded-md "
+          >
+            <FaEdit className="mr-2" />
+            Edit
+          </button>
+
+          <button
+            onClick={() => handleDelete(params.row)}
+            className="flex items-center bg-red-500 text-white px-4   h-9 rounded-md"
+          >
+            <FaTrashAlt className="mr-2" />
+            Delete
+          </button>
+          
         </div>
       );
     },

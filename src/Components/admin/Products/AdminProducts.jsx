@@ -47,9 +47,9 @@ const AdminProducts = () => {
       productName:item.productName,
       description:item.description,
       quantity:item.quantity,
-      price:item.price,
+      price:Number(item.price).toFixed(2),
       discount:item.discount,
-      specialPrice:item.specialPrice,
+      specialPrice:Number(item.specialPrice).toFixed(2),
       image:item.image,
     }
   })
