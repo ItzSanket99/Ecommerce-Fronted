@@ -4,7 +4,7 @@ import InputFeild from '../../Shared/InputFeild';
 import { Button } from '@mui/material';
 import { FaSpinner } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCategories, updateDashboardProduct } from '../../../Store/Actions';
+import { addNewProductFromDashboard, fetchCategories, updateDashboardProduct } from '../../../Store/Actions';
 import toast from 'react-hot-toast';
 import SelectTextField from '../../Shared/SelectTextFeild';
 import Skeleton from '../../Shared/Skeleton';
@@ -42,7 +42,12 @@ const AddProductForm = ({setOpen, product, update=false}) => {
 
     const saveProductHandler = (data) => {
         if(!update){
-            // create new product logic
+            // create new product logic 
+            const sendData = {
+                ...data,
+                categoryId:selectedCategory?.categoryId,
+            }
+            dispatch(addNewProductFromDashboard(sendData, toast, reset, setLoader, setOpen))
 
         }else{
             const sentData = {
@@ -147,6 +152,7 @@ const AddProductForm = ({setOpen, product, update=false}) => {
                     Description
                 </label>
                 <textarea 
+                    maxLength={255}
                     rows={5}
                     placeholder="Add Product Description.. "
                     className={`px-4 py-2 w-full border outline-none bg-transparent text-slate-800 rounded-md 
@@ -185,7 +191,7 @@ const AddProductForm = ({setOpen, product, update=false}) => {
                             <FaSpinner /> Loading.. 
                         </div>
                     ) : (
-                        "Update"
+                        "Save"
                     )}
                 </Button>
             </div>

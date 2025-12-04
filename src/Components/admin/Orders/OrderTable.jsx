@@ -9,8 +9,8 @@ const OrderTable = ({adminOrder,pagination,queryString}) => {
 const [updateOpenModal, setUpdateOpenModal] = useState(false);
 const [selectedItem, setSelectedItem] = useState("");
 const [loader, setLoader] = useState(false);
-const navigate = useNavigate()
 const [currentPage, setCurrentPage] = useState(pagination?.pageNumber + 1 || 1);
+const navigate = useNavigate()
 const [searchParams] = useSearchParams();
 const params = new URLSearchParams(searchParams);
 const pathname = useLocation().pathname;

@@ -430,3 +430,20 @@ export const deleteProduct =
         toast.error(error?.response?.data?.description || "Failed to update Image")
     }
 }
+
+export const addNewProductFromDashboard = 
+(sendData, toast, reset, setLoader, setOpen) => async (dispatch, getState) => {
+    try {
+        setLoader(true);
+        await api.post(`/admin/categories/${sendData.categoryId}/product`,sendData);
+        toast.success("Product Created Sucessfully");
+        reset();
+
+        setOpen(false);
+        await dispatch(dashboardProductAction());
+    } catch (error) {
+        toast.error(error?.response?.data?.description || "Failed to add product");
+    }finally{
+        setLoader(false);
+    }
+}

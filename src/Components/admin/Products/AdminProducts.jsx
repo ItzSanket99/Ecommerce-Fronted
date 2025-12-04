@@ -12,6 +12,8 @@ import DeleteModal from '../../Shared/DeleteModal.jsx';
 import { deleteProduct } from '../../../Store/Actions/index.js';
 import toast from 'react-hot-toast';
 import ImageUploadForm from './ImageUploadForm.jsx';
+import ProductViewModal from '../../Shared/ProductViewModal.jsx';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 
 const AdminProducts = () => {
 
@@ -28,7 +30,14 @@ const AdminProducts = () => {
   const [openAddModal,setOpenAddModal] = useState(false);
   const [openDeleteModal,setOpenDeleteModal] = useState(false);
   const [openImageUploadModal,setOpenImageUploadModal] = useState(false);
+  const [openProductViewModal,setOpenProductViewModal] = useState(false);
   const [loader,setLoader] = useState(false);
+
+  const navigate = useNavigate()
+  const [searchParams] = useSearchParams();
+  const params = new URLSearchParams(searchParams);
+  const pathname = useLocation().pathname;
+
 
   useDashboardProductFilter();
   
@@ -58,16 +67,22 @@ const AdminProducts = () => {
     setSelectedProduct(product);
     setOpenImageUploadModal(true);
   }
-  const handleProductView = () => {
-
+  const handleProductView = (product) => {
+    setSelectedProduct(product);
+    setOpenProductViewModal(true);
   }
-  const handlePaginationChange = () => {
-
-  }
+  const handlePaginationChange = (paginationModel) => {
+    const page = paginationModel.page + 1;
+    setCurrentPage(page);
+    params.set("page",page.toString());
+    navigate(`${pathname}?${params}`)
+  } 
 
   const onDeleteHandler = () => {
     dispatch(deleteProduct(setLoader, selectedProduct?.id, toast, setOpenDeleteModal));
   }
+
+    const isAvailable = selectedProduct?.quantity && Number(selectedProduct?.quantity) > 0
 
   return (
     <div>
@@ -156,9 +171,16 @@ const AdminProducts = () => {
         loader={loader}
         title={"Delete Product"}
         onDeleteHandler={onDeleteHandler}
-      >
+      />
         
-      </DeleteModal>
+
+
+      <ProductViewModal
+        open={openProductViewModal}
+        setOpen={setOpenProductViewModal}
+        product={selectedProduct}
+        isAvailable={isAvailable}
+      />
     </div>
   )
 }
