@@ -471,3 +471,34 @@ export const dashboardCategoryAction = (queryString) => async (dispatch) => {
         
     }
 }
+
+export const addNewCategoryFromDashboard = 
+(sendData, toast, reset, setLoader, setOpen) => async (dispatch, getState) => {
+    try {
+        setLoader(true);
+        await api.post("/admin/categories",sendData);
+        toast.success("Category Created Successfully");
+        reset();
+        setOpen(false);
+        await dispatch(dashboardCategoryAction());
+    } catch (error) {
+       toast.error(error?.response?.data?.description || "Failed to Create Category");
+    }finally{
+        setLoader(false);
+    }
+}
+
+export const updateDashboardCategory = 
+(sentData, toast, reset, setLoader, setOpen) => async (dispatch) => {
+    try {
+        setLoader(true);
+        await api.put(`/admin/categories/${sentData.id}`,sentData);
+        toast.success("Category update successfull");
+        reset();
+        setLoader(false);
+        setOpen(false);
+        await dispatch(dashboardCategoryAction());
+    } catch (error) {
+        toast.error(error?.response?.data?.description || "Failed to update the category")
+    }
+}

@@ -6,6 +6,8 @@ import { DataGrid } from '@mui/x-data-grid';
 import { adminCategoryTableColumn } from '../Helper/tableColumn';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import useCategoryFilter from '../../../Hooks/useCategoryFilter';
+import Modal from '../../Shared/Modal';
+import AddCategory from './addCategory';
 
 const Categories = () => {
 
@@ -13,12 +15,17 @@ const Categories = () => {
   const {isLoading, errorMessage} = useSelector((state) => state.errors);
   const [openAddModal, setOpenAddModal] = useState(false);
   const [currentPage,setCurrentPage] = useState(pagination?.pageNumber + 1 || 1);
+  const [openAddCateoryModal, setOpenAddCatgeoryModal] = useState(false);
+  const [openUpdateCateoryModal, setOpenUpdateCatgeoryModal] = useState(false);
+  const [selectedCategory,setSelectedCategory] = useState("");
 
   const emptyCategory = !categories && categories?.length === 0;
   const navigate = useNavigate()
   const [searchParams] = useSearchParams();
   const params = new URLSearchParams(searchParams);
   const pathname = useLocation().pathname;
+
+  
 
   useCategoryFilter();
 
@@ -30,7 +37,8 @@ const Categories = () => {
   })
 
   const handleEdit = (category) => {
-    
+    setSelectedCategory(category);
+    setOpenUpdateCatgeoryModal(true);
   }
   const handleDelete = (category) => {
 
@@ -51,7 +59,7 @@ const Categories = () => {
       <div>
             <div className='pt-6 pb-10 flex justify-end' >
               <button className='bg-custom-blue hover:bg-blue-800 text-white font-semibold py-2 px-4 flex items-center gap-2 rounded-md shadow-md transition-colors hover:text-slate-300 duration-300' 
-              onClick={() => setOpenAddModal(true)}
+              onClick={() => setOpenAddCatgeoryModal(true)}
               >
                 <FaThList className='text-xl'/>
                   Add Products   
@@ -108,7 +116,18 @@ const Categories = () => {
             )}
       
           </div>
-        
+
+        <Modal 
+        open={openAddCateoryModal || openUpdateCateoryModal}
+        setOpen={openAddCateoryModal ? setOpenAddCatgeoryModal : setOpenUpdateCatgeoryModal}
+        title={openAddCateoryModal ? "Add Category" : "Update Category"}
+      >
+        <AddCategory
+          setOpen={openAddCateoryModal ? setOpenAddCatgeoryModal : setOpenUpdateCatgeoryModal}
+          category={selectedCategory}
+          update={setOpenUpdateCatgeoryModal}
+        />
+      </Modal>
     </div>
   )
 }
