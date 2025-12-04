@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { FaBoxOpen, FaThList } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../../Shared/Loader';
 import { DataGrid } from '@mui/x-data-grid';
 import { adminCategoryTableColumn } from '../Helper/tableColumn';
@@ -8,16 +8,21 @@ import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import useCategoryFilter from '../../../Hooks/useCategoryFilter';
 import Modal from '../../Shared/Modal';
 import AddCategory from './addCategory';
+import DeleteModal from '../../Shared/DeleteModal';
+import { deleteDashboardCategory } from '../../../Store/Actions';
+import toast from 'react-hot-toast';
 
 const Categories = () => {
 
   const { categories, pagination } = useSelector((state) => state.Products)
   const {isLoading, errorMessage} = useSelector((state) => state.errors);
-  const [openAddModal, setOpenAddModal] = useState(false);
   const [currentPage,setCurrentPage] = useState(pagination?.pageNumber + 1 || 1);
   const [openAddCateoryModal, setOpenAddCatgeoryModal] = useState(false);
   const [openUpdateCateoryModal, setOpenUpdateCatgeoryModal] = useState(false);
   const [selectedCategory,setSelectedCategory] = useState("");
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [loader, setLoader] = useState(false);
+  const dispatch = useDispatch();
 
   const emptyCategory = !categories && categories?.length === 0;
   const navigate = useNavigate()
@@ -41,7 +46,12 @@ const Categories = () => {
     setOpenUpdateCatgeoryModal(true);
   }
   const handleDelete = (category) => {
+    setSelectedCategory(category);
+    setOpenDeleteModal(true);
+  }
 
+  const onDeleteHandler = () => {
+    dispatch(deleteDashboardCategory(setLoader, selectedCategory?.id, toast, setOpenDeleteModal));
   }
 
 
@@ -128,6 +138,14 @@ const Categories = () => {
           update={setOpenUpdateCatgeoryModal}
         />
       </Modal>
+
+      <DeleteModal 
+        open={openDeleteModal}
+        setOpen={setOpenDeleteModal}
+        loader={loader}
+        title={"Delete Product"}
+        onDeleteHandler={onDeleteHandler}
+      />
     </div>
   )
 }

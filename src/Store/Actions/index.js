@@ -502,3 +502,20 @@ export const updateDashboardCategory =
         toast.error(error?.response?.data?.description || "Failed to update the category")
     }
 }
+
+export const deleteDashboardCategory =
+(setLoader, categoryId, toast, setOpenDeleteModal) => async (dispatch,getState) => {
+    try {
+        setLoader(true);
+        await api.delete(`/admin/categories/${categoryId}`);
+        toast.success("Category Deleted Successfully");
+        setLoader(false);
+        setOpenDeleteModal(false);
+        await dispatch(dashboardCategoryAction());
+       
+    } catch (error) {
+        toast.error(error?.response?.data?.message || "Some error occured")
+    }finally{
+        setOpenDeleteModal(false);
+    }
+ }
