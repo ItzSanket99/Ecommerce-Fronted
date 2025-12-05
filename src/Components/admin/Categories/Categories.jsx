@@ -72,7 +72,7 @@ const Categories = () => {
               onClick={() => setOpenAddCatgeoryModal(true)}
               >
                 <FaThList className='text-xl'/>
-                  Add Products   
+                  Add Category   
               </button>
             </div>
       
@@ -135,7 +135,7 @@ const Categories = () => {
         <AddCategory
           setOpen={openAddCateoryModal ? setOpenAddCatgeoryModal : setOpenUpdateCatgeoryModal}
           category={selectedCategory}
-          update={setOpenUpdateCatgeoryModal}
+          update={openUpdateCateoryModal}
         />
       </Modal>
 

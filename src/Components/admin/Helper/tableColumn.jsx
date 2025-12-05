@@ -259,7 +259,7 @@ export const adminCategoryTableColumn = (
     editable: false,
     headerClassName: "text-black font-semibold border",
     cellClassName: "text-slate-700 font-normal border",
-    renderHeader: (params) => <span className="text-center">CategoryID</span>,
+    renderHeader: (params) => <span className="text-center">CategoryId</span>,
   },
   {
     disableColumnMenu: true,
@@ -308,3 +308,55 @@ export const adminCategoryTableColumn = (
     },
   },
 ];
+
+export const adminSellerTableColumn = () => [
+  {
+    disableColumnMenu: true,
+    sortable: false,
+    field: "id",
+    headerName: "ID",
+    minWidth: 250,
+    headerAlign: "center",
+    align: "center",
+    editable: false,
+    headerClassName: "text-black font-semibold border",
+    cellClassName: "text-slate-700 font-normal border",
+    renderHeader: (params) => <span className="text-center">SellerId</span>,
+  },
+  {
+    disableColumnMenu: true,
+    field: "userName",
+    headerName: "UserName",
+    align: "center",
+    width: 300,
+    editable: false,
+    sortable: false,
+    headerAlign: "center",
+    headerClassName: "text-black font-semibold text-center border ",
+    cellClassName: "text-slate-700 font-normal border text-center",
+    renderHeader: (params) => <span>userName</span>,
+  },
+  {
+    disableColumnMenu: true,
+    field: "email",
+    headerName: "Email",
+    align: "center",
+    width: 300,
+    editable: false,
+    sortable: false,
+    headerAlign: "center",
+    headerClassName: "text-black font-semibold text-center border ",
+    cellClassName: "text-slate-700 font-normal border text-center",
+    renderHeader: (params) => <span>Email</span>,
+     renderCell: (params) => {
+      return (
+        <div className="flex items-center justify-center gap-1">
+          <span>
+            <MdOutlineEmail className="text-slate-700 text-lg" />
+          </span>
+          <span>{params?.row?.email}</span>
+        </div>
+      );
+    },
+  },
+]
