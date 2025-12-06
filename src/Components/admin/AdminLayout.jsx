@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Sidebar from '../shared/Sidebar'
+import SideBar from '../Shared/SideBar';
 import { Outlet } from 'react-router-dom'
 import { Description, Dialog, DialogBackdrop, DialogPanel, DialogTitle, TransitionChild } from '@headlessui/react';
 import { RxCross1 } from 'react-icons/rx';
@@ -33,7 +33,7 @@ const AdminLayout = () => {
                 </button>
             </div>
            </TransitionChild>
-           <Sidebar />
+           <SideBar/>
           </DialogPanel>
         </div>
       </Dialog>
@@ -42,7 +42,7 @@ const AdminLayout = () => {
 
 
         <div className='hidden xl:fixed xl:inset-y-0 xl:z-50 xl:flex xl:w-72 xl:flex-col'>
-            <Sidebar />
+            <SideBar />
         </div>
 
         <div className='xl:pl-72'>
