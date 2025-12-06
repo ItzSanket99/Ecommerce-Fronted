@@ -323,14 +323,15 @@ export const analyticsAction = () => async (dispatch, getState) => {
         }     
 }
 
-export const getOrderForDashboard = (queryString) => async (dispatch) => {
+export const getOrderForDashboard = (queryString, isAdmin) => async (dispatch) => {
     try {
         dispatch({ type: "IS_FETCHING" })
-        const { data } = await api.get(`/admin/orders?${queryString}`);
+        const endPoint = isAdmin ? "/admin/orders" : "/seller/orders"
+        const { data } = await api.get(`${endPoint}?${queryString}`);
         dispatch({
             type:"GET_ADMIN_ORDERS",
             payload:data.content,
-            pageNumber:data.pageNumber,
+            pageNumber:data.pageNumber, 
             pageSize:data.pageSize,
             totalElement:data.totalElement,
             totalPages:data.totalPages,
@@ -348,10 +349,11 @@ export const getOrderForDashboard = (queryString) => async (dispatch) => {
 }
 
 export const updateOrderStatusFromDashboard =
-(orderId, orderStatus, toast, setLoader,queryString) => async (dispatch, getState) => {;
+(orderId, orderStatus, toast, setLoader,queryString,isAdmin) => async (dispatch, getState) => {;
     try {
+        const endPoint = isAdmin ? "/admin/orders/" : "/seller/orders/";
         setLoader(true);
-        const { data } = await api.put(`/admin/orders/${orderId}/status`,{status: orderStatus});
+        const { data } = await api.put(`${endPoint}${orderId}/status`,{status: orderStatus});
         toast.success(data.message || "Order updated sucessfully");
         await dispatch(getOrderForDashboard(queryString));
     } catch (error) {

@@ -6,7 +6,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select'
 import React, { useState } from 'react'
 import { FaSpinner } from 'react-icons/fa';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateOrderStatusFromDashboard } from '../../../Store/Actions';
 import toast from 'react-hot-toast';
 
@@ -26,6 +26,8 @@ const UpdateOrderForm = ({setOpen, selectedId, selectedItem, loader, setLoader,q
     const [orderStatus, setOrderStatus] = useState(selectedItem?.status || "Accepted");
     const [error, setError] = useState("");
     const dispatch = useDispatch();
+    const { user } = useSelector((state) => state.auth);
+    const isAdmin = user && user?.roles.includes("ROLE_ADMIN");
 
 
     const updateOrderStatus = (e) => {
@@ -34,7 +36,7 @@ const UpdateOrderForm = ({setOpen, selectedId, selectedItem, loader, setLoader,q
             setError("order Status is required")
             return;
         }
-        dispatch(updateOrderStatusFromDashboard(selectedId,orderStatus,toast,setLoader,queryString));
+        dispatch(updateOrderStatusFromDashboard(selectedId,orderStatus,toast,setLoader,queryString,isAdmin));
     }
 
   return (
