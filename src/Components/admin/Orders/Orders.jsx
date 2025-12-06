@@ -6,9 +6,9 @@ import useOrderFilter from '../../../Hooks/useOrderFilter';
 
 const Orders = () => {
   
-    const {adminOrders, pagination} = useSelector((state) => state.order);
-    const queryString = useOrderFilter();
-    const emptyOrder = !adminOrders || adminOrders?.length === 0;
+  const {adminOrders, pagination} = useSelector((state) => state.order);
+  const emptyOrder = !adminOrders || adminOrders?.length === 0;
+  const queryString = useOrderFilter();
 
   return (
     <div className='pb-6 pt-20' >
