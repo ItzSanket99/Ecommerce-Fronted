@@ -32,6 +32,8 @@ const AdminProducts = () => {
   const [openImageUploadModal,setOpenImageUploadModal] = useState(false);
   const [openProductViewModal,setOpenProductViewModal] = useState(false);
   const [loader,setLoader] = useState(false);
+  const { user } = useSelector((state) => state.auth);
+  const isAdmin = user && user?.roles.includes("ROLE_ADMIN");
 
   const navigate = useNavigate()
   const [searchParams] = useSearchParams();
@@ -79,7 +81,7 @@ const AdminProducts = () => {
   } 
 
   const onDeleteHandler = () => {
-    dispatch(deleteProduct(setLoader, selectedProduct?.id, toast, setOpenDeleteModal));
+    dispatch(deleteProduct(setLoader, selectedProduct?.id, toast, setOpenDeleteModal,isAdmin));
   }
 
     const isAvailable = selectedProduct?.quantity && Number(selectedProduct?.quantity) > 0

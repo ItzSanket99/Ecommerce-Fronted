@@ -2,7 +2,7 @@ import { Button } from '@mui/material';
 import React, { useRef, useState } from 'react'
 import toast from 'react-hot-toast';
 import { FaCloudUploadAlt, FaSpinner } from 'react-icons/fa'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateDashboardProductImage } from '../../../Store/Actions';
 
 const ImageUploadForm = ({setOpen, product}) => {
@@ -11,6 +11,8 @@ const ImageUploadForm = ({setOpen, product}) => {
     const [selectedFile,setSelectedFile] = useState(null);
     const [loader,setLoader] = useState(false);
     const dispatch = useDispatch();
+    const { user } = useSelector((state) => state.auth);
+    const isAdmin = user && user?.roles.includes("ROLE_ADMIN");
 
     const onHandleImageChange = (e) => {
         const file = e.target.files[0];
@@ -35,7 +37,7 @@ const ImageUploadForm = ({setOpen, product}) => {
         }
         const formData = new FormData();
         formData.append("image", selectedFile)
-        dispatch(updateDashboardProductImage(formData,product.id,toast,setLoader,setOpen));
+        dispatch(updateDashboardProductImage(formData,product.id,toast,setLoader,setOpen,isAdmin));
     };
     const handleClearImage = () => {
         setPreviewImage(null);
