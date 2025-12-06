@@ -543,3 +543,20 @@ export const deleteDashboardCategory =
         
     }
 }
+
+export const registerNewSeller = 
+(sendData,toast,reset,setLoader,setOpen) => async (dispatch, getState) => {
+    try {
+        setLoader(true);
+        const { data } = await api.post("/auth/register/sellers",sendData);
+        toast.success(data?.message);
+        reset();
+        setLoader(false);
+        setOpen(false);
+        await dispatch(dashboardSellerAction());
+
+    } catch (error) {
+        console.log(error);
+        toast.error(error?.response?.data?.message || "Some error occured");
+    }
+}

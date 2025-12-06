@@ -7,6 +7,8 @@ import { DataGrid } from '@mui/x-data-grid';
 import { adminSellerTableColumn } from '../Helper/tableColumn';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import useSellerFilter from '../../../Hooks/useSellerFilter';
+import Modal from '../../Shared/Modal';
+import AddSellerForm from './AddSellerForm';
 
 const Sellers = () => {
 
@@ -100,6 +102,15 @@ const Sellers = () => {
         )}
   
       </div>
+      <Modal
+        open={openAddSellerModal}
+        setOpen={setOpenAddSellerModal}
+        title='Add New Seller'
+      >
+        <AddSellerForm 
+          setOpen={setOpenAddSellerModal}
+        />
+      </Modal>
     </div>
   )
 }
