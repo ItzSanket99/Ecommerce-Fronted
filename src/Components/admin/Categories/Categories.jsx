@@ -7,7 +7,7 @@ import { adminCategoryTableColumn } from '../Helper/tableColumn';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import useCategoryFilter from '../../../Hooks/useCategoryFilter';
 import Modal from '../../Shared/Modal';
-import AddCategory from './addCategory';
+import AddCategory from './AddCategory';
 import DeleteModal from '../../Shared/DeleteModal';
 import { deleteDashboardCategory } from '../../../Store/Actions';
 import toast from 'react-hot-toast';

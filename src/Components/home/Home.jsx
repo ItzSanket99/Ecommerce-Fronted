@@ -37,7 +37,7 @@ const Home = () => {
           <Loader />
       ) : errorMessage ? (
         <div className=' flex justify-center items-center p-[200px]' >
-          <FaTriangleExclamation className=' text-slate-800 text-3xl mr-2' />
+          {/* <FaTriangleExclamation className=' text-slate-800 text-3xl mr-2' /> */}
           <span className=' text-slate-800 text-lg font-medium' >
             {errorMessage}
           </span>

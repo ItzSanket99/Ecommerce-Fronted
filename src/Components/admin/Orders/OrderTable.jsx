@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { adminOrderTableColumn } from '../Helper/tableColumn'
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import Modal from '../../Shared/Modal';
-import UpdateOrderForm from './updateOrderForm';
+import UpdateOrderForm from './UpdateOrderForm';
 
 const OrderTable = ({adminOrder,pagination,queryString}) => {
 const [updateOpenModal, setUpdateOpenModal] = useState(false);

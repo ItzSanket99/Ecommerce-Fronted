@@ -16,8 +16,8 @@ import PaymentConfirmation from './Components/checkout/PaymentConfirmation'
 import AdminLayout from './Components/admin/AdminLayout'
 import Dashboard from './Components/admin/DashBoard/Dashboard'
 import AdminProducts from './Components/admin/Products/AdminProducts'
-import Sellers from './Components/admin/Sellers/sellers'
-import Categories from './Components/admin/Categories/categories'
+import Sellers from './Components/admin/Sellers/Sellers'
+import Categories from './Components/admin/Categories/Categories'
 import Orders from './Components/admin/Orders/Orders'
 
 function App() {
