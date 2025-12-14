@@ -47,11 +47,13 @@ const ProductCard = ({
                 })
             }} 
                     className="w-full overflow-hidden aspect-[3/2]">
-                <img 
-                className="w-full h-full cursor-pointer transition-transform duration-300 transform hover:scale-105"
-                src={image}
-                alt={productName}>
-                </img>
+                                <div className="w-full h-full flex items-center justify-center p-2">
+    <img
+        className="max-w-full max-h-full object-contain cursor-pointer transition-transform duration-300 hover:scale-105"
+        src={image}
+        alt={productName}
+    />
+</div>
             </div>
             <div className="p-4">
                 <h2 onClick={() => {

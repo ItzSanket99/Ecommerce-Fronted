@@ -17,7 +17,7 @@ const PaymentForm = ({clientSecret, totalPrice}) => {
             elements,
             clientSecret,
             confirmParams:{
-                return_url:`${import.meta.env.VITE_FRONTEND_URL}/order-confirm`,
+                return_url:`${import.meta.env.VITE_FRONTEND_URL}order-confirm`,
             },
         });
 
