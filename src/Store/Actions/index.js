@@ -129,6 +129,8 @@ export const autheticateSignInUser =
                 type: "LOGIN_USER",
                 payload: data,
             });
+
+            localStorage.setItem("token", data.jwtToken);
             localStorage.setItem("auth", JSON.stringify(data));
             reset()
             toast.success("Login Success");
@@ -172,7 +174,7 @@ export const addUpdateUserAddress =
     dispatch({type:"BUTTON_LOADER"});
     try {
         if (addressId) {
-            const { data } = await api.put(`addresses/${addressId}`,sendData);
+            const { data } = await api.put(`/addresses/${addressId}`,sendData);
         } else { 
             const { data } = await api.post("/addresses",sendData);
         }
@@ -202,6 +204,8 @@ export const addUpdateUserAddress =
             type: "IS_SUCCESS"
         })
     } catch (error) {
+        console.log(error);
+        
         dispatch({
             type: "IS_ERROR",
             payload: "Failed to fetch users address"
@@ -221,7 +225,7 @@ export const addUpdateUserAddress =
    async (dispatch,getState) => {
     try {
         dispatch({type:"BUTTON_LOADER"});
-        await api.delete(`addresses/${addressId}`);
+        await api.delete(`/addresses/${addressId}`);
         dispatch({type:"IS_SUCCESS"});
         dispatch(getUserAddresses());
         toast.success("Address Deleted Successfully");
@@ -355,7 +359,7 @@ export const updateOrderStatusFromDashboard =
         setLoader(true);
         const { data } = await api.put(`${endPoint}${orderId}/status`,{status: orderStatus});
         toast.success(data.message || "Order updated sucessfully");
-        await dispatch(getOrderForDashboard(queryString));
+        await dispatch(getOrderForDashboard(queryString,isAdmin));
     } catch (error) {
         console.log(error);
         toast.error(error?.response?.data?.message || "Internal Server Error");
@@ -398,7 +402,7 @@ export const updateDashboardProduct =
         reset();
         setLoader(false);
         setOpen(false);
-        await dispatch(dashboardProductAction());
+        await dispatch(dashboardProductAction("",isAdmin));
     } catch (error) {
         toast.error(error?.response?.data?.description || "Failed to update the product ")
     }
@@ -413,7 +417,7 @@ export const deleteProduct =
         toast.success("Product Deleted Successfully");
         setLoader(false);
         setOpenDeleteModal(false);
-        await dispatch(dashboardProductAction());
+        await dispatch(dashboardProductAction("",isAdmin));
        
     } catch (error) {
         toast.error(error?.response?.data?.message || "Some error occured")
@@ -431,7 +435,7 @@ export const deleteProduct =
         toast.success("Image upload successfully");
         setLoader(false);
         setOpen(false);
-        await dispatch(dashboardProductAction());
+        await dispatch(dashboardProductAction("",isAdmin));
     } catch (error) {
         toast.error(error?.response?.data?.description || "Failed to update Image")
     }
@@ -447,7 +451,7 @@ export const addNewProductFromDashboard =
         reset();
 
         setOpen(false);
-        await dispatch(dashboardProductAction());
+        await dispatch(dashboardProductAction("",isAdmin));
     } catch (error) {
         toast.error(error?.response?.data?.description || "Failed to add product");
     }finally{
@@ -560,7 +564,7 @@ export const registerNewSeller =
         reset();
         setLoader(false);
         setOpen(false);
-        await dispatch(dashboardSellerAction());
+        await dispatch(dashboardSellerAction(""));
 
     } catch (error) {
         toast.error(error?.response?.data?.message || "Some error occured");
