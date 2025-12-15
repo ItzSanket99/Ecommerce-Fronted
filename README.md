@@ -3,6 +3,9 @@
 Frontend for a full-stack **multi-vendor Ecommerce platform**, built using **React.js, Redux Toolkit, React Router, Tailwind CSS**, and integrated with **Stripe** for secure payments.  
 Supports **Customer, Admin, and Seller dashboards**, product browsing, cart, checkout, order management, and more.
 
+## 🚀 Live Demo
+🔗 https://ecomfrontend23.netlify.app/
+
 ---
 
 ## 📌 Project Overview
